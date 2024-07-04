@@ -1,6 +1,6 @@
 # edge-scrambler
 
-## lib/index.js
+## dist/index.js
 ```js
 function createScrambler(b, p, i, h, a) {
   const s = (m, e) => new Array(m).fill(0).map((r, n) => e(n)), x = (m, e, r) => {
@@ -31,7 +31,7 @@ function createScrambler(b, p, i, h, a) {
 }
 ```
 
-## lib/scramble.js
+## dist/scramble.js
 ```js
 function createScramble(b, a, c, s, l) {
   const o = (n, m) => new Array(n).fill(0).map((r, e) => m(e)), f = (n, m, r) => {
@@ -54,7 +54,7 @@ function createScramble(b, a, c, s, l) {
 }
 ```
 
-## lib/restore.js
+## dist/restore.js
 ```js
 function createRestore(b, s, o, f, p) {
   const a = (m, e) => new Array(m).fill(0).map((r, n) => e(n)), c = (m, e, r) => {

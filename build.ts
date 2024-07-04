@@ -1,10 +1,11 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 
 mkdirSync('lib', { recursive: true })
+mkdirSync('dist', { recursive: true })
 
 const files = [
     [
-        'lib/index.js',
+        'dist/index.js',
         (
             await (
                 await Bun.build({
@@ -25,7 +26,7 @@ const files = [
             .trim(),
     ],
     [
-        'lib/scramble.js',
+        'dist/scramble.js',
         (
             await (
                 await Bun.build({
@@ -46,7 +47,7 @@ const files = [
             .trim(),
     ],
     [
-        'lib/restore.js',
+        'dist/restore.js',
         (
             await (
                 await Bun.build({
@@ -66,12 +67,57 @@ const files = [
             .replace(/export \{[^}]+\};$/m, '')
             .trim(),
     ],
+    [
+        'lib/index.js',
+        (
+            await (
+                await Bun.build({
+                    entrypoints: ['index.ts'],
+                    minify: {
+                        whitespace: false,
+                        syntax: true,
+                        identifiers: true,
+                    },
+                })
+            ).outputs[0].text()
+        )
+    ],
+    [
+        'lib/scramble.js',
+        (
+            await (
+                await Bun.build({
+                    entrypoints: ['scramble.ts'],
+                    minify: {
+                        whitespace: false,
+                        syntax: true,
+                        identifiers: true,
+                    },
+                })
+            ).outputs[0].text()
+        )
+    ],
+    [
+        'lib/restore.js',
+        (
+            await (
+                await Bun.build({
+                    entrypoints: ['restore.ts'],
+                    minify: {
+                        whitespace: false,
+                        syntax: true,
+                        identifiers: true,
+                    },
+                })
+            ).outputs[0].text()
+        )
+    ],
 ]
 
 for (const [file, content] of files) {
     writeFileSync(file, content)
 }
 
-const readme = files.map(([file, content]) => `## ${file}\n\`\`\`js\n${content}\n\`\`\``).join('\n\n')
+const readme = files.filter(([f]) => f.startsWith('dist')).map(([file, content]) => `## ${file}\n\`\`\`js\n${content}\n\`\`\``).join('\n\n')
 
 writeFileSync('README.md', `# edge-scrambler\n\n${readme}`)
