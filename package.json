@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.3",
   "name": "@kanamone/edge-scrambler",
   "scripts": {
     "prebuild": "bun run tsc --build",
@@ -8,6 +8,7 @@
     "prepublishOnly": "bun run build",
     "release": "changeset publish"
   },
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -27,5 +28,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "mitata": "^0.1.11"
   }
 }

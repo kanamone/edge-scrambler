@@ -1,27 +1,47 @@
-function createScrambler(b, p, i, h, a) {
-  const s = (m, e) => new Array(m).fill(0).map((r, n) => e(n)), x = (m, e, r) => {
-    let n = r;
-    return s(e, () => s(m, () => (n ^= n << 13, n ^= n >> 17, n ^= n << 5)).map((u, o) => [u, o]).sort((u, o) => u[0] - o[0]).map((u) => u[1]));
-  }, c = (m, e) => {
-    const r = m.toString().split("").map(Number);
-    while (r.length < e)
-      r.unshift(0);
+function createScrambler(b, a, c, w, t) {
+  const f = (e, u) => new Array(e).fill(0).map((n, r) => u(r)), A = (e, u, n) => {
+    let r = n;
+    return f(u, () => f(e, () => (r ^= r << 13, r ^= r >> 17, r ^= r << 5)).map((m, o) => [m, o]).sort((m, o) => m[0] - o[0]).map((m) => m[1]));
+  }, s = (e, u) => {
+    const n = e.toString().split("").map(Number);
+    while (n.length < u)
+      n.unshift(0);
+    return n;
+  }, h = (e) => Number(e.join("")), S = (e, u) => {
+    const n = Array(e.length);
+    for (let r = 0;r < e.length; r++)
+      n[u[r]] = e[r];
+    return n;
+  }, p = (e, u, n) => {
+    const r = Array(e.length);
+    for (let m = 0;m < e.length; m++)
+      r[m] = (e[m] + u[m] % 10 * n + 10) % 10;
     return r;
-  }, f = (m) => Number(m.join("")), y = (m, e) => m.map((r, n) => [e[n], r]).sort((r, n) => r[0] - n[0]).map((r) => r[1]), w = (m, e, r) => m.map((n, u) => (n + e[u] % 10 * r + 10) % 10), S = (m, e) => m.map((r, n) => [n, r]).sort((r, n) => e.indexOf(r[0]) - e.indexOf(n[0])).map((r) => r[1]), l = 10 ** b, t = x(b, a, h);
-  if (p * i % l !== 1)
+  }, T = (e, u) => {
+    const n = Array(e.length);
+    for (let r = 0;r < e.length; r++)
+      n[u.indexOf(r)] = e[r];
+    return n;
+  }, l = 10 ** b, y = A(b, t, w);
+  if (a * c % l !== 1)
     throw new Error("invalid number pair");
+  const i = new Array(b);
   return {
-    scramble(m) {
-      let e = m;
-      for (let r = 0;r < a; r++)
-        e = f(w(y(c(e * p % l, b), t[r]), t[r], 1));
-      return e;
+    scramble(e) {
+      let u = e;
+      for (let n = 0;n < t; n++) {
+        const r = y[n];
+        u = h(p(S(s(u * a % l, b), r), r, 1));
+      }
+      return u;
     },
-    restore(m) {
-      let e = m;
-      for (let r = a - 1;r >= 0; r--)
-        e = f(S(w(c(e, b), t[r], -1), t[r])) * i % l;
-      return e;
+    restore(e) {
+      let u = e;
+      for (let n = t - 1;n >= 0; n--) {
+        const r = y[n];
+        u = h(T(p(s(u, b), r, -1), r)) * c % l;
+      }
+      return u;
     }
   };
 }
