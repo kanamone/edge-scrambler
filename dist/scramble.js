@@ -1,5 +1,4 @@
-// scramble.ts
-function T(b, a, c, s, l) {
+function createScramble(b, a, c, s, l) {
   const o = (n, m) => new Array(n).fill(0).map((r, e) => m(e)), f = (n, m, r) => {
     let e = r;
     return o(m, () => o(n, () => (e ^= e << 13, e ^= e >> 17, e ^= e << 5)).map((u, t) => [u, t]).sort((u, t) => u[0] - t[0]).map((u) => u[1]));
@@ -18,6 +17,3 @@ function T(b, a, c, s, l) {
     return m;
   };
 }
-export {
-  T as create
-};

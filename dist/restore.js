@@ -1,5 +1,4 @@
-// restore.ts
-function y(b, s, o, f, p) {
+function createRestore(b, s, o, f, p) {
   const a = (m, e) => new Array(m).fill(0).map((r, n) => e(n)), c = (m, e, r) => {
     let n = r;
     return a(e, () => a(m, () => (n ^= n << 13, n ^= n >> 17, n ^= n << 5)).map((u, t) => [u, t]).sort((u, t) => u[0] - t[0]).map((u) => u[1]));
@@ -18,6 +17,3 @@ function y(b, s, o, f, p) {
     return e;
   };
 }
-export {
-  y as create
-};

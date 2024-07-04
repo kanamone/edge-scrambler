@@ -1,5 +1,4 @@
-// index.ts
-function T(b, p, i, h, a) {
+function createScrambler(b, p, i, h, a) {
   const s = (m, e) => new Array(m).fill(0).map((r, n) => e(n)), x = (m, e, r) => {
     let n = r;
     return s(e, () => s(m, () => (n ^= n << 13, n ^= n >> 17, n ^= n << 5)).map((u, o) => [u, o]).sort((u, o) => u[0] - o[0]).map((u) => u[1]));
@@ -26,6 +25,3 @@ function T(b, p, i, h, a) {
     }
   };
 }
-export {
-  T as create
-};
